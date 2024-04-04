@@ -1,0 +1,53 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.0'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.kafka.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// 모니터링 읠위한 actuator , micrometer
+	implementation 'io.micrometer:micrometer-registry-prometheus:latest.release'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+	// in-memory h2 에 저장을 하기위한 jpa , h2
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	runtimeOnly 'com.h2database:h2'
+
+	// client 에게 메시지를 입력받기위한 thymeleaf , web
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// kafka
+	implementation 'org.springframework.kafka:spring-kafka'
+	implementation 'org.apache.kafka:kafka-streams'
+
+	// slack
+	implementation("com.slack.api:bolt:1.1.+")
+	implementation("com.slack.api:bolt-servlet:1.1.+")
+	implementation("com.slack.api:bolt-jetty:1.1.+")
+
+	// lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// yml 설정 데이타바인딩 위한 의존성
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

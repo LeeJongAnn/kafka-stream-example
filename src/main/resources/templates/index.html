@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kafka-slack-stream</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        function sendMessage(color_name) {
+            const message = document.querySelector("#message");
+            console.log(message.value)
+            if (message.value.length === 0) {
+                alert("메세지를 입력해 주세요.");
+            } else {
+                axios.post('/api/message?message=' + message.value)
+            }
+        }
+    </script>
+    <style>
+        #message {
+            border: none;
+            border-bottom: 2px solid black;
+            width: 300px;
+            font-size: 30px;
+        }
+        #message:focus {
+            outline: none;
+            border-bottom: 4px solid #1a56c0;
+        }
+        .content {
+            font-size: 30px;
+            font-weight: 700;
+        }
+        button {
+            border: none;
+            background-color: #2f64c4;
+            width: 70px;
+            height: 50px;
+            border-radius: 10px;
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+        }
+        button:hover {
+            background-color: #417ae1;
+        }
+    </style>
+</head>
+<body style="text-align: center">
+<h1>메시지를 입력해주세요.</h1>
+<br>
+<div class="content">
+    <label for="message">메시지 : </label>
+    <textarea id="message" name="content" cols="40" rows="3"></textarea>
+    <button type="button" onclick="sendMessage()">전송</button>
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+spring:
+  # ??? ??
+  kafka:
+    bootstrap-servers: 127.0.0.1:19092,127.0.0.1:29092,127.0.0.1:39092
+    producer:
+      acks: all
+      bootstrap-servers: 127.0.0.1:19092,127.0.0.1:29092,127.0.0.1:39092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      bootstrap-servers: 127.0.0.1:19092,127.0.0.1:29092,127.0.0.1:39092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+  # ??? ??? ??
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database: h2
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+# slack ??
+slack:
+  token: xoxb-3430725359712-6886449603986-iNgBrnpRkhEgFjhB5IVfNBTp
+  channel: C06SF2XDBTK
+# actuator ??
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "metrics, prometheus"
+
+# Kafka ?? ??
+kafka:
+  topic:
+    kafka: spring-kafka.sample.test.send-to-kafka
+    slack: spring-kafka.sample.test.send-to-slack
+  stream:
+    name: stram-app
+    servers: 127.0.0.1:19092,127.0.0.1:29092,127.0.0.1:39092
+
+server:
+  port: 9999
